@@ -1,3 +1,18 @@
+;; クリップボードを共有する (OSX)
+;; http://qiita.com/tstomoki/items/24d63217f797c6929a23
+;;
+(defun copy-from-osx ()
+ (shell-command-to-string "pbpaste"))
+
+(defun paste-to-osx (text &optional push)
+ (let ((process-connection-type nil))
+     (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+       (process-send-string proc text)
+       (process-send-eof proc))))
+
+(setq interprogram-cut-function 'paste-to-osx)
+(setq interprogram-paste-function 'copy-from-osx)
+
 ;; load-path
 (let((default-directory (expand-file-name "~/.emacs.d/elisp")))
   (add-to-list 'load-path default-directory)
@@ -171,10 +186,11 @@
 
 ;; autoinsert
 (auto-insert-mode)
-;(setq auto-install-directory "~/.emacs.d/insert/")
+;; (setq auto-install-directory "~/.emacs.d/insert/")
 (setq auto-insert-directory "~/.emacs.d/insert/")
 (define-auto-insert "\\.py$" "python-template.py")
 (define-auto-insert "\\.markdown$" "log-template.markdown")
+(define-auto-insert "\\.vhd$" "vhdl-template.vhd")
 
 
 ;; markdown-mode
