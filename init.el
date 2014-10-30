@@ -167,7 +167,7 @@
 (mapc
  (lambda (hook)
    (add-hook hook 'flyspell-prog-mode))
- '(; コメント領域のみ flyspell-mode 有効
+ '( ; コメント領域のみ flyspell-mode 有効
    c-mode-common-hook
    emacs-lisp-mode-hook
    ))
@@ -175,7 +175,7 @@
  (lambda (hook)
    (add-hook hook
 	     '(lambda () (flyspell-mode 1))))
- '(; 常に flyspell-mode 有効
+ '( ; 常に flyspell-mode 有効
    yatex-mode-hook
    markdown-mode-hook
    ))
