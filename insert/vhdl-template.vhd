@@ -1,16 +1,20 @@
 --------------------------------------------------------------------------------
--- file name: 
--- author:
+-- file name     : 
+-- author        : ISHITSUKA Hikaru
 --
--- create date: 
--- module name: 
--- project name: 
+-- create date   : 
+-- module name   : 
+-- project name  :   
 -- target devices: 
--- versions: 
--- description: 
--- dependencies: 
+-- tool versions : 
+-- description   : 
+-- dependencies  : 
 --
--- revision: 
--- comments: 
+-- revision      : 
+-- comments      : 
 --
 --------------------------------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_arith.all;
+use ieee.std_logic_unsigned.all;

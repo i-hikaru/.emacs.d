@@ -19,13 +19,9 @@
   (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
       (normal-top-level-add-subdirs-to-load-path)))
 
-
-;;; setting key-bind
-;; cua-mode
-;; 矩形選択
-(cua-mode t)
-(setq cua-enable-cua-keys nil)
-
+;;
+;; key-bind setting
+;;
 ;; C-hをbackspaceにする
 (keyboard-translate ?\C-h ?\C-?) ; ?\C-?はDELのキーシケンス
 
@@ -39,12 +35,6 @@
 
 ;; ファイルサイズを表示する
 (size-indication-mode t)
-
-
-;; 時刻を表示
-(setq display-time-day-and-date t) ; 曜日/月/日を表示
-(setq display-time-24hr-format t)  ; 24時間表示
-(display-time-mode t)
 
 ;; バッテリー残量を表示
 (display-battery-mode t)
@@ -166,12 +156,29 @@
 ;; TeXShopでプレビューする
 (setq tex-command "~/Library/TeXShop/bin/platex2pdf-euc" dvi2-command "open -a TeXShop") ; eucの場合
 
-
+;;
 ;; aspell
+;; Spell checker
+;;
 (setq-default ispell-program-name "aspell")
 (eval-after-load "ispell"
  '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
-
+; http://keisanbutsuriya.blog.fc2.com/blog-entry-60.html
+(mapc
+ (lambda (hook)
+   (add-hook hook 'flyspell-prog-mode))
+ '(; コメント領域のみ flyspell-mode 有効
+   c-mode-common-hook
+   emacs-lisp-mode-hook
+   ))
+(mapc
+ (lambda (hook)
+   (add-hook hook
+	     '(lambda () (flyspell-mode 1))))
+ '(; 常に flyspell-mode 有効
+   yatex-mode-hook
+   markdown-mode-hook
+   ))
 
 ;; auto-async-byte-compile
 (require 'auto-async-byte-compile)
