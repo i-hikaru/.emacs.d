@@ -1,17 +1,26 @@
+;; (install-elisp "http://taiyaki.org/elisp/sense-region/src/sense-region.el")
+;; (require 'sense-region)
+;; (sense-region-on)
+
+;; Print-out
+;; ref., http://www.gfd-dennou.org/member/morikawa/memo/emacs.txt
+(require 'ps-print)
+(setq ps-print-color-p t                      ; カラーを使用
+      ps-multibyte-buffer 'non-latin-printer) ; 日本語使用
+
 ;; クリップボードを共有する (OSX)
 ;; http://qiita.com/tstomoki/items/24d63217f797c6929a23
-;;
-(defun copy-from-osx ()
- (shell-command-to-string "pbpaste"))
+;; (defun copy-from-osx ()
+;;  (shell-command-to-string "pbpaste"))
 
-(defun paste-to-osx (text &optional push)
- (let ((process-connection-type nil))
-     (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-       (process-send-string proc text)
-       (process-send-eof proc))))
+;; (defun paste-to-osx (text &optional push)
+;;  (let ((process-connection-type nil))
+;;      (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+;;        (process-send-string proc text)
+;;        (process-send-eof proc))))
 
-(setq interprogram-cut-function 'paste-to-osx)
-(setq interprogram-paste-function 'copy-from-osx)
+;; (setq interprogram-cut-function 'paste-to-osx)
+;; (setq interprogram-paste-function 'copy-from-osx)
 
 ;; load-path
 (let((default-directory (expand-file-name "~/.emacs.d/elisp")))
@@ -230,7 +239,9 @@
 (setq YaTeX-use-jmode-hook nil)
 (put 'narrow-to-region 'disabled nil)
 
+;;
 ;; VHDL Mode
+;;
 (autoload 'vhdl-mode "vhdl-mode" "VHDL Mode" t)
 (setq auto-mode-alist (cons '("\\.vhdl?$" . vhdl-mode) auto-mode-alist))
 ;;; Customizations for VHDL Mode
@@ -264,10 +275,12 @@
 ;; Any files in verilog mode shuold have their keywords colorized
 (add-hook 'verilog-mode-hook '(lambda () (font-look-mode 1)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Insert datetime when push "F5" ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Insert datetime when push "F5"
+;;
 (define-key global-map [f5]
   '(lambda ()
      (interactive)
      (insert (format-time-string "%Y-%m-%d %H:%M:%S"))))
+
+(put 'downcase-region 'disabled nil)
