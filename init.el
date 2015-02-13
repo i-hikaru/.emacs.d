@@ -1,3 +1,6 @@
+;; global-set-key
+(global-set-key "\C-x\C-g" 'goto-line)
+
 ;; (install-elisp "http://taiyaki.org/elisp/sense-region/src/sense-region.el")
 ;; (require 'sense-region)
 ;; (sense-region-on)
@@ -8,19 +11,19 @@
 (setq ps-print-color-p t                      ; カラーを使用
       ps-multibyte-buffer 'non-latin-printer) ; 日本語使用
 
-;; クリップボードを共有する (OSX)
-;; http://qiita.com/tstomoki/items/24d63217f797c6929a23
-;; (defun copy-from-osx ()
-;;  (shell-command-to-string "pbpaste"))
-
-;; (defun paste-to-osx (text &optional push)
-;;  (let ((process-connection-type nil))
-;;      (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-;;        (process-send-string proc text)
-;;        (process-send-eof proc))))
-
-;; (setq interprogram-cut-function 'paste-to-osx)
-;; (setq interprogram-paste-function 'copy-from-osx)
+;; クリップボードを共有する (OSX and tmux)
+; http://mogproject.blogspot.jp/2014/04/how-to-integrate-clipboard-mac-tmux.html
+(defun copy-from-osx ()
+  (shell-command-to-string "pbpaste"))
+ 
+(defun paste-to-osx (text &optional push)
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
+ 
+(setq interprogram-cut-function 'paste-to-osx)
+(setq interprogram-paste-function 'copy-from-osx)
 
 ;; load-path
 (let((default-directory (expand-file-name "~/.emacs.d/elisp")))
