@@ -1,3 +1,10 @@
+;; revert-buffer without asking
+(defun revert-buffer-force()
+  (interactive)
+  (revert-buffer nil t)
+)
+(global-set-key "\C-cr" 'revert-buffer-force)
+
 ;; global-set-key
 (global-set-key "\C-x\C-g" 'goto-line)
 
